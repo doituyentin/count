@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="50">
+  <style>
+    text { font: bold 24px sans-serif; fill: #333; }
+  </style>
+  <text x="10" y="35" id="counter">Loading...</text>
+  <script type="application/ecmascript"><![CDATA[
+    async function updateCount() {
+      // Đây là ví dụ, bạn cần thay YOUR_GITHUB_USERNAME, REPO, PATH, TOKEN
+      const url = 'https://api.github.com/repos/YOUR_GITHUB_USERNAME/REPO/contents/count.txt';
+      const token = 'YOUR_GITHUB_TOKEN';
+      
+      // Lấy file count.txt
+      const resp = await fetch(url, {
+        headers: { Authorization: 'token ' + token }
+      });
+      const data = await resp.json();
+      
+      // Decode nội dung base64
+      const count = parseInt(atob(data.content));
+      
+      // Update số lượt truy cập
+      document.getElementById('counter').textContent = count + 1;
+      
+      // Ghi lại file count.txt (tăng 1)
+      await fetch(url, {
+        method: 'PUT',
+        headers: { 
+          Authorization: 'token ' + token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: 'Increment count',
+          content: btoa((count + 1).toString()),
+          sha: data.sha
+        })
+      });
+    }
+    updateCount();
+  ]]></script>
+</svg>
