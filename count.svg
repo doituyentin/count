@@ -6,7 +6,7 @@
   <script type="application/ecmascript"><![CDATA[
     async function updateCount() {
       // Đây là ví dụ, bạn cần thay YOUR_GITHUB_USERNAME, REPO, PATH, TOKEN
-      const url = 'https://api.github.com/repos/YOUR_GITHUB_USERNAME/REPO/contents/count.txt';
+      const url = 'https://api.github.com/repos/doituyentin/count/contents/count.txt';
       const token = 'YOUR_GITHUB_TOKEN';
       
       // Lấy file count.txt
